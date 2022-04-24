@@ -1,4 +1,3 @@
-import logging
 import os,json
 from flask import Flask, request, jsonify
 from google.cloud import storage
@@ -27,9 +26,9 @@ def books():
         json_array = []
         logging.info(len(books_entities), author, language=="")
         for book in books_entities:
-            if author and author != book['author']:
+            if author and author not in book['author']:
                 continue
-            if language and language != book['language']:
+            if language and language not in book['language']:
                 continue
             obj = {}
             obj['title'] = book['title']
@@ -49,6 +48,9 @@ def getbook(isbn):
     try:
         datastore_client = datastore.Client.from_service_account_json('book-library-123-93f0c01b7c20.json')
         query = datastore_client.query(kind='Books', )
+        if len(isbn) != 13:
+            logging.warning(str(isbn) + ' is invalid')
+            return 'invalid isbn', 406
         query.add_filter("isbn", "=", str(isbn))
         books_entities = list(query.fetch())
         if len(books_entities) == 0:
@@ -72,6 +74,11 @@ def putbook(isbn):
     try:
         datastore_client = datastore.Client.from_service_account_json('book-library-123-93f0c01b7c20.json')
         query = datastore_client.query(kind='Books', )
+
+        if len(isbn) != 13:
+            logging.warning(str(isbn) + ' is invalid')
+            return 'invalid isbn', 406
+
         query.add_filter("isbn", "=", str(isbn))
         books_entities = list(query.fetch())
         if len(books_entities) == 0:
@@ -147,7 +154,6 @@ def dealPost(request, isbn=None):
 def upload(isbn):
     return dealPost(request, str(isbn))
 
-# isbn=978-0-596-520&title=test&author=test&language=test&pages=123&year=1987
 @app.route("/books", methods=['POST'])
 def uploadwithoutisbn():
     return dealPost(request)
