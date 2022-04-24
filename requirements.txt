@@ -2,6 +2,6 @@ Flask
 gunicorn==19.9.0
 google-cloud-datastore
 google-cloud-storage
-wand
+wand==0.6.7
 google-cloud-vision
 
