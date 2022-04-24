@@ -2,6 +2,7 @@ import os,json
 from flask import Flask, request, jsonify, render_template
 from google.cloud import storage
 from google.cloud import datastore
+from wand.image import Image
 import logging
 
 app = Flask(__name__)   
