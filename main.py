@@ -2,7 +2,6 @@ import os,json
 from flask import Flask, request, jsonify, render_template
 from google.cloud import storage
 from google.cloud import datastore
-from wand.image import Image
 import logging
 
 app = Flask(__name__)   
@@ -179,15 +178,6 @@ def dealPost(request, isbn=None):
             blob.upload_from_string(image.read(), content_type=image.content_type)
             print(f"File uploaded: {image.filename} to {blob.public_url}")
             logging.info(f"File uploaded: {image.filename} to {blob.public_url}")
-
-            thumbnail = Image(blob=bucket.get_blob(image.filename).download_as_string())
-            thumbnail.resize(100, 100)
-
-            # Upload the thumbnail with a prefix
-            thumbnail_blob = bucket_thumbnail.blob(f"thumbnail-{image.filename}")
-            thumbnail_blob.upload_from_string(thumbnail.make_blob())
-            print(f"Thumbnail file uploaded: {image.filename} to {thumbnail_blob.public_url}")
-            logging.info(f"Thumbnail file uploaded: {image.filename} to {thumbnail_blob.public_url}")
         
         datastore_client = datastore.Client.from_service_account_json('book-library-123-93f0c01b7c20.json')
         kind = 'Books-image'
