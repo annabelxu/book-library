@@ -1,6 +1,6 @@
 Flask
 gunicorn==19.9.0
-google-cloud-storage
+google-cloud-datastore
 google-cloud-storage
 
 
