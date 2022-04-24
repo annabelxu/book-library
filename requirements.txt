@@ -3,3 +3,4 @@ gunicorn==19.9.0
 google-cloud-datastore
 google-cloud-storage
 google-cloud-vision
+wand
