@@ -1,0 +1,36 @@
+<!doctype html>
+
+<html>
+<head>
+  <title>Book Dashboard</title>
+  <style>
+    table, th, td {
+      border:1px solid black;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+    <h1>Book Dashboard</h1>
+    
+    <div>
+    
+    <table>
+      <tr>
+        <th>Book title</th>
+        <th>query times</th>
+      </tr>
+      {% for book_entity in books_entities %}
+      <tr>
+        <td>{{book_entity['title']}}</td>
+        <td>{{book_entity['query_times']}}</td>
+      </tr>
+      {% endfor %} 
+    </table>
+    
+    </div>
+
+  </body>
+
+</html> 
