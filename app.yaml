@@ -1,4 +1,6 @@
 runtime: python
+api_version: 1
+threadsafe: true
 env: flex
 entrypoint: gunicorn -b :$PORT main:app
 runtime_config:
@@ -7,4 +9,13 @@ env_variables:
     CLOUD_STORAGE_BUCKET: book-library-123
 manual_scaling:
   instances: 1
+
+handlers:
+- url: /
+  static_files: www/dashboard.html
+  upload: www/index.html
+
+- url: /(.*)
+  static_files: www/\1
+  upload: www/(.*)
 
