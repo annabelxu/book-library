@@ -13,7 +13,7 @@ manual_scaling:
 handlers:
 - url: /
   static_files: www/dashboard.html
-  upload: www/index.html
+  upload: www/dashboard.html
 
 - url: /(.*)
   static_files: www/\1
