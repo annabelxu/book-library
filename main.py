@@ -149,7 +149,6 @@ def delbook(isbn):
         logging.error(e)
         return str(e), 400
 
-# curl -i -X POST -H "Content-Type: multipart/form-data" -F "data=@xxxx;isbn=918-0-596-520;title=test;author=test;language=test;pages=123;year=1987"
 def dealPost(request, isbn=None):
     try:
         if not isbn:
