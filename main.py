@@ -54,8 +54,8 @@ def books():
             obj['author'] = book['author']
             obj['language'] = book['language']
             obj['isbn'] = book['isbn']
-            obj['pages'] = str(book['pages'])
-            obj['year'] = str(book['year'])
+            obj['pages'] = int(book['pages'])
+            obj['year'] = int(book['year'])
             obj['image'] = str(book['image'])
             get_add_book(datastore_client, book)
             json_array.append(obj)
@@ -84,8 +84,8 @@ def getbook(isbn):
         obj['author'] = book['author']
         obj['language'] = book['language']
         obj['isbn'] = book['isbn']
-        obj['pages'] = str(book['pages'])
-        obj['year'] = str(book['year'])
+        obj['pages'] = int(book['pages'])
+        obj['year'] = int(book['year'])
         obj['image'] = str(book['image'])
         get_add_book(datastore_client, book)
         return jsonify(obj), 200
@@ -117,7 +117,7 @@ def putbook(isbn):
 
         key = datastore_client.key('Books-image', isbn)
 
-        # Create a Datastore entity
+    
         entity = datastore.Entity(key)
         entity['isbn'] = isbn
         entity['title'] = str(request.form['title']) if 'title' in request.form else book['title']
