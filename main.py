@@ -54,8 +54,8 @@ def books():
             obj['author'] = book['author']
             obj['language'] = book['language']
             obj['isbn'] = book['isbn']
-            obj['pages'] = str(book['pages'])
-            obj['year'] = str(book['year'])
+            obj['pages'] = int(book['pages'])
+            obj['year'] = int(book['year'])
             obj['image'] = str(book['image'])
             get_add_book(datastore_client, book)
             json_array.append(obj)
@@ -84,8 +84,8 @@ def getbook(isbn):
         obj['author'] = book['author']
         obj['language'] = book['language']
         obj['isbn'] = book['isbn']
-        obj['pages'] = str(book['pages'])
-        obj['year'] = str(book['year'])
+        obj['pages'] = int(book['pages'])
+        obj['year'] = int(book['year'])
         obj['image'] = str(book['image'])
         get_add_book(datastore_client, book)
         return jsonify(obj), 200
@@ -123,8 +123,8 @@ def putbook(isbn):
         entity['title'] = str(request.form['title']) if 'title' in request.form else book['title']
         entity['author'] = str(request.form['author']) if 'author' in request.form else book['author']
         entity['language'] = str(request.form['language']) if 'language' in request.form else book['language']
-        entity['pages'] = str(request.form['pages']) if 'pages' in request.form else book['pages']
-        entity['year'] = str(request.form['year']) if 'year' in request.form else book['year']
+        entity['pages'] = int(request.form['pages']) if 'pages' in request.form else book['pages']
+        entity['year'] = int(request.form['year']) if 'year' in request.form else book['year']
         entity['image'] = book['image']
         entity['query_times'] = book['query_times']
         datastore_client.put(entity)
@@ -156,8 +156,8 @@ def dealPost(request, isbn=None):
         title = str(request.form['title'])
         author = str(request.form['author'])
         language = str(request.form['language'])
-        pages = str(request.form['pages'])
-        year = str(request.form['year'])
+        pages = int(request.form['pages'])
+        year = int(request.form['year'])
         image = request.files['file']
         
         if len(isbn) != 13:
