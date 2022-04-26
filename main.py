@@ -54,8 +54,8 @@ def books():
             obj['author'] = book['author']
             obj['language'] = book['language']
             obj['isbn'] = book['isbn']
-            obj['pages'] = int(book['pages'])
-            obj['year'] = int(book['year'])
+            obj['pages'] = str(book['pages'])
+            obj['year'] = str(book['year'])
             obj['image'] = str(book['image'])
             get_add_book(datastore_client, book)
             json_array.append(obj)
@@ -84,8 +84,8 @@ def getbook(isbn):
         obj['author'] = book['author']
         obj['language'] = book['language']
         obj['isbn'] = book['isbn']
-        obj['pages'] = int(book['pages'])
-        obj['year'] = int(book['year'])
+        obj['pages'] = str(book['pages'])
+        obj['year'] = str(book['year'])
         obj['image'] = str(book['image'])
         get_add_book(datastore_client, book)
         return jsonify(obj), 200
@@ -188,8 +188,8 @@ def dealPost(request, isbn=None):
         entity['title'] = title
         entity['author'] = author
         entity['language'] = language
-        entity['pages'] = str(pages)
-        entity['year'] = str(year)
+        entity['pages'] = int(pages)
+        entity['year'] = int(year)
         entity['image'] = ""
         entity['query_times'] = 0
         if blob:
@@ -205,7 +205,6 @@ def dealPost(request, isbn=None):
 def upload(isbn):
     return dealPost(request, str(isbn))
 
-# isbn=978-0-596-520&title=test&author=test&language=test&pages=123&year=1987
 @app.route("/books", methods=['POST'])
 def uploadwithoutisbn():
     return dealPost(request)
